@@ -18,7 +18,7 @@ const EnvSchema = z.object({
   ELEVENLABS_STT_MODEL: z.string().default("scribe_v2"),
   ELEVENLABS_TTS_MODEL: z.string().default("eleven_multilingual_v2"),
   ELEVENLABS_VOICE_ID: z.string().min(1),
-  ELEVENLABS_TTS_OUTPUT_FORMAT: z.string().default("opus_24000_32"),
+  ELEVENLABS_TTS_OUTPUT_FORMAT: z.string().default("opus_48000_32"),
   AI_GATEWAY_API_KEY: z.string().min(1),
   LLM_MODEL: z.string().default("openai/gpt-4.1-mini"),
   LLM_TEMPERATURE: z.coerce.number().default(0.7),
@@ -38,7 +38,8 @@ export function loadConfig(): WatchAgentConfig {
   }
   return {
     ...parsed.data,
-    SUPABASE_URL: normalizeSupabaseUrl(parsed.data.SUPABASE_URL)
+    SUPABASE_URL: normalizeSupabaseUrl(parsed.data.SUPABASE_URL),
+    ELEVENLABS_TTS_OUTPUT_FORMAT: normalizeElevenLabsOutputFormat(parsed.data.ELEVENLABS_TTS_OUTPUT_FORMAT)
   };
 }
 
@@ -74,4 +75,11 @@ function findEnvPath(): string {
 
 function normalizeSupabaseUrl(url: string): string {
   return url.replace(/\/rest\/v1\/?$/, "").replace(/\/$/, "");
+}
+
+function normalizeElevenLabsOutputFormat(outputFormat: string): string {
+  if (outputFormat === "opus_24000_32") return "opus_48000_32";
+  if (outputFormat === "opus_24000_64") return "opus_48000_64";
+  if (outputFormat === "opus_24000_96") return "opus_48000_96";
+  return outputFormat;
 }

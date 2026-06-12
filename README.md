@@ -60,4 +60,4 @@ Provider-specific code lives behind interfaces in `packages/core`. The gateway a
 
 - Supabase uses the current `SUPABASE_SECRET_KEY` and `SUPABASE_PUBLISHABLE_KEY` naming.
 - Vercel AI Gateway is called through Vercel AI SDK 6 and `@ai-sdk/openai-compatible`.
-- ElevenLabs STT defaults to `scribe_v2`; TTS uses the streaming text-to-speech endpoint and requests Opus output for the watch audio path.
+- ElevenLabs STT defaults to `scribe_v2`; TTS uses the streaming text-to-speech endpoint and requests 48 kHz Opus output for the watch audio path.
