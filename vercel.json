@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build -w @watchagent/web",
+  "devCommand": "npm run dev -w @watchagent/web",
+  "installCommand": "npm install",
+  "framework": "nextjs"
+}
